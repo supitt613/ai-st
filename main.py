@@ -3,7 +3,8 @@ import requests
 import pandas as pd
 from io import StringIO
 import datetime
-
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # --- 網頁設定 ---
 st.set_page_config(page_title="台股每日篩選器", layout="wide")
 st.title("📈 台股每日潛力股篩選 (AI Filter)")
@@ -30,7 +31,7 @@ def get_stock_data(date_obj):
     }
 
     try:
-        response = requests.get(url, params=payloads, headers=headers)
+        response = requests.get(url, params=payloads, headers=headers, verify=False)
         
         # 簡單檢查回傳是否有效
         if len(response.text) < 500:
@@ -86,5 +87,6 @@ if st.button("開始分析"):
             # 顯示結果
             st.subheader(f"🎯 篩選結果 ({len(final_view)} 檔)")
             # 為了美觀，只顯示重要欄位
-            cols_to_show = ['成交股數', '開盤價', '最高價', '最低價', '收盤價', '股價振幅']
+            cols_to_show = ['證券代號','成交股數', '開盤價', '最高價', '最低價', '收盤價', '股價振幅']
+
             st.dataframe(final_view[cols_to_show], use_container_width=True)
