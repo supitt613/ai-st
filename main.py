@@ -7,7 +7,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # --- 網頁設定 ---
 st.set_page_config(page_title="ai-st filter", layout="wide")
-st.title("📈AI Filter)")
+st.title("AI_filter")
 
 # --- 側邊欄：使用者輸入 ---
 st.sidebar.header("篩選設定")
@@ -90,4 +90,5 @@ if st.button("開始分析"):
             cols_to_show = ['證券代號','成交股數', '開盤價', '最高價', '最低價', '收盤價', '股價振幅']
 
             st.dataframe(final_view[cols_to_show], use_container_width=True)
+
 
